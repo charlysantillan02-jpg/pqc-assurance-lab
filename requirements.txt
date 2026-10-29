@@ -1,0 +1,3 @@
+# Tier 1: el lab corre sin dependencias externas si no está disponible ML-KEM.
+# Con cryptography >= 46 se usan claves ML-KEM reales (recomendado).
+cryptography>=46.0 ; python_version >= "3.9"

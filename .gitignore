@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+samples/*
+!samples/.gitkeep
+challenges/e01_size_matters/instance.json
+challenges/e01_size_matters/*.pem
+challenges/e01_size_matters/*.raw
+reports/*.filled.md
+.venv/
