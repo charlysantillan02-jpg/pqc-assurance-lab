@@ -12,6 +12,7 @@ servicios propios del lab:
 | **E01** | Reproducción del reto | Mezcla de representaciones raw/PEM | Medición incorrecta |
 | **Lab 1** | Auditor de migración PQC | Confusión de representación | Integridad del veredicto GO/NO-GO |
 | **Lab 2** | Handshake híbrido X25519MLKEM768 | Parsing differential sin binding de longitud | **Downgrade** a criptografía clásica |
+| **Lab 3** | Formatos compuestos (X.509 / COSE-CBOR) | Parser differential validador vs consumidor | **Sustitución de clave** (K1 aprobada, K2 usada) |
 
 > ⚠️ **Alcance y ética.** Todo el lab corre contra servicios *mock* incluidos
 > en este repo, en tu propia máquina (Kali en VMware). No ataca sistemas de
@@ -42,7 +43,8 @@ pqc-assurance-lab/
 │   ├── size_oracle.py                # normalizador y comparadores safe/buggy
 │   ├── keygen.py                     # genera claves de muestra
 │   ├── lab1_representation_confusion.py
-│   └── lab2_hybrid_downgrade.py
+│   ├── lab2_hybrid_downgrade.py
+│   └── lab3_parser_differential.py
 ├── challenges/e01_size_matters/
 │   ├── generate_instance.py          # reproduce una instancia del reto
 │   └── solve.py                      # solver + evidencia
@@ -69,6 +71,7 @@ make keygen      # genera claves y muestra la tabla de tamaños
 make e01         # reproduce y resuelve el reto E01
 make lab1        # confusión de representación (bypass del auditor)
 make lab2        # downgrade del híbrido (MITM strip del componente PQC)
+make lab3        # parser differential (sustitución de clave K1->K2)
 ```
 
 ## Backend real vs simulado

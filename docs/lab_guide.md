@@ -68,6 +68,31 @@ make lab2
 Esta es la razón del *downgrade protection* de TLS 1.3 (RFC 8446) y del
 binding de longitud en los híbridos PQC.
 
+## 3b. Lab 3 — Parser differential (formatos compuestos)
+
+La clave ML-KEM va anidada en un X.509 (SPKI) o un COSE_Key (CBOR). El
+**validador** y el **consumidor** parsean distinto el mismo blob.
+
+```bash
+make lab3
+```
+
+- **3a · X.509/DER trailing data:** blob = `SPKI(K1) || SPKI(K2)`. El validador
+  laxo lee el primer SPKI (K1, aprobada) e ignora los datos finales; el
+  consumidor buggy usa el último bloque (K2, del atacante) → sustitución.
+  El parser estricto **rechaza** por datos finales no consumidos.
+- **3b · COSE/CBOR clave duplicada:** el label `-1` (x) aparece dos veces.
+  Decoder `first-wins` (validador) ve K1; `last-wins` (consumidor) ve K2.
+  RFC 8949 estricto rechaza mapas con claves duplicadas.
+
+**Fix:** mismo parser canónico en validador y consumidor, rechazar trailing
+data y claves de mapa duplicadas, y fingerprint de la clave que **se usa**, no
+de la que se validó.
+
+**Variante para practicar:** en Kali, generá un X.509 real con una clave
+ML-KEM (`openssl req ... -key dk.pem`) y probá `openssl asn1parse` contra un
+parser laxo propio para ver la discrepancia en estructuras reales.
+
 ## 4. Tier 2 — criptografía real
 
 ### Generar y diseccionar claves (OpenSSL 3.5+)

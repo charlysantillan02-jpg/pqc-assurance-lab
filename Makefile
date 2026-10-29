@@ -1,8 +1,8 @@
-.PHONY: all keygen e01 lab1 lab2 clean backend
+.PHONY: all keygen e01 lab1 lab2 lab3 clean backend
 
 PY ?= python3
 
-all: keygen e01 lab1 lab2
+all: keygen e01 lab1 lab2 lab3
 
 backend:
 	$(PY) lab/pqc_common.py
@@ -19,6 +19,9 @@ lab1:
 
 lab2:
 	$(PY) lab/lab2_hybrid_downgrade.py
+
+lab3:
+	$(PY) lab/lab3_parser_differential.py
 
 clean:
 	rm -f samples/* challenges/e01_size_matters/instance.json \
